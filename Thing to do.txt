@@ -1,0 +1,5 @@
+1. Automatic door open and lock using IR sensor and not 
+2. Automatic light and fans control using IOT and Pir motion sensor
+3. Automatic AC on and off 
+4. Socket controlling
+5. Voice control
