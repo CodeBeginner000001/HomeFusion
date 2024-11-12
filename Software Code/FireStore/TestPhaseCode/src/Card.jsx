@@ -3,7 +3,7 @@ import { Button_Heading, Toggle_Button } from "./ButtonCard-Component"
 export default function Card({CardHeading,value,CollectionName,docId}) {
   return (
     <>
-      <div className="bg-black rounded-3xl flex flex-col items-center justify-center text-nowrap">
+      <div className="bg-black rounded-3xl flex flex-col items-center justify-center text-nowrap w-[160px] h-[160px]">
             <Button_Heading CardHeading={CardHeading}/>
             <Toggle_Button value={value} CollectionName={CollectionName} docId={docId}/>
        </div>
