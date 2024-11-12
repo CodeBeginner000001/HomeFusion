@@ -43,15 +43,15 @@ export default function App() {
   }, []);
   return (
     <>
-      <h2 className="text-3xl">Fans</h2>
+      <h2 className="text-3xl ml-6">Fans</h2>
       <FanCard fansData={fansData} CollectionName={FanCollection}/>
-      <h2 className="text-3xl">Ac</h2>
+      <h2 className="text-3xl ml-6">Ac</h2>
       <AcCard acsData={acsData} CollectionName={AcCollection}/>
-      <h2 className="text-3xl">Lights</h2> 
+      <h2 className="text-3xl ml-6">Lights</h2> 
       <LightCard lightsData={lightsData} CollectionName={LightCollection}/>
-      <h2 className="text-3xl">Private Lock</h2>
+      <h2 className="text-3xl ml-6">Private Lock</h2>
       <Private_LockCard privateDoorLockData={privateDoorLockData} CollectionName={Private_LockCollection}/>
-      <h2 className="text-3xl">Public Lock</h2>
+      <h2 className="text-3xl ml-6">Public Lock</h2>
       <Public_LockCard publicDoorLockData={publicDoorLockData} CollectionName={Public_LockCollection}/>
     </>
   );
