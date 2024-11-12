@@ -31,70 +31,70 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 // Pin definitions
-int FAN1_PIN = 12;
-int FAN2_PIN = 13;
+int FAN1_PIN = 26;
+int FAN2_PIN = 25;
 int FAN3_PIN = 14;
-int LIGHT1_PIN = 15;
-int LIGHT2_PIN = 16;
-int AC1_PIN = 17;
-int AC2_PIN = 22;
-int PriDOOR_PIN = 18;
-int PubDOOR_PIN = 19;
+int LIGHT1_PIN = 13;
+int LIGHT2_PIN = 12;
+int AC1_PIN = 27;
+int PriDOOR_PIN = 33;
+int PubDOOR_PIN = 32;
 
 // Ultrasonic Pins
 int trigPin = 2;
-int echoPin = 36;
+int echoPin = 15;
 
 // defining variables
 long duration;
 int distance;
 bool doorValue = false;
 
-// PIR motion sensor pin
-int Pir_Pin = 39;
+// IR motion sensor pin
+int ir_Pin = 39;
 // value for pir sensor
-int val=0;
 
 void loop() {
   
-val = digitalRead(Pir_Pin); // get the pir sensor value;
-Serial.print("PIR: ");
+int val = digitalRead(ir_Pin); // get the pir sensor value;
+
+doorValue = ultrasonicValue();
+Serial.print("Door Value: ");
+Serial.println(doorValue);
+
+Serial.print("IR: ");
 Serial.println(val);
 // For Fans
-  if(val == HIGH)
-  {
-    digitalWrite(FAN1_PIN, HIGH);
+  if(val == LOW)
+  { digitalWrite(LED_BUILTIN,HIGH);
+    digitalWrite(FAN1_PIN, LOW);
   }else{
-    digitalWrite(FAN1_PIN, controlFan("Fan 1") ? HIGH : LOW);
+    digitalWrite(FAN1_PIN, controlFan("Fan 1") ? LOW : HIGH);
   }
-  digitalWrite(FAN2_PIN, controlFan("Fan 2") ? HIGH : LOW);
-  digitalWrite(FAN3_PIN, controlFan("Fan 3") ? HIGH : LOW);
+  digitalWrite(FAN2_PIN, controlFan("Fan 2") ? LOW : HIGH);
+  digitalWrite(FAN3_PIN, controlFan("Fan 3") ? LOW : HIGH);
 
 
 // For Lights
-  if(val == HIGH){
-    digitalWrite(LIGHT1_PIN, HIGH);
-  }else{
+  if(val == LOW){
+    digitalWrite(LED_BUILTIN,HIGH);
     digitalWrite(LIGHT1_PIN, LOW);
-    digitalWrite(LIGHT1_PIN, controlLight("Light 1") ? HIGH : LOW);
+  }else{
+    digitalWrite(LIGHT1_PIN, controlLight("Light 1") ? LOW : HIGH);
   }
   
-  digitalWrite(LIGHT2_PIN, controlLight("Light 2") ? HIGH : LOW);
+  digitalWrite(LIGHT2_PIN, controlLight("Light 2") ? LOW : HIGH);
 
 // For ACs
   
-  digitalWrite(AC1_PIN, controlAC("Ac 1") ? HIGH : LOW);
-  digitalWrite(AC2_PIN, controlAC("Ac 2") ? HIGH : LOW);
+  digitalWrite(AC1_PIN, controlAC("Ac 1") ? LOW : HIGH);
+  // digitalWrite(AC2_PIN, controlAC("Ac 2") ? HIGH : LOW);
 
 // For Public Door Locks
-  doorValue = ultrasonicValue();
-  Serial.print("Door Value: ");
-  Serial.println(doorValue);
   if(doorValue==true){
-    digitalWrite(PubDOOR_PIN,HIGH);
+    digitalWrite(PubDOOR_PIN,LOW);
   }
   else{
-    digitalWrite(PubDOOR_PIN, controlDoor("Public_Door_Locks", "Public Lock 1") ? HIGH : LOW);
+    digitalWrite(PubDOOR_PIN, controlDoor("Public_Door_Locks", "Public Lock 1") ? LOW : HIGH);
   }
 
 
@@ -103,7 +103,7 @@ Serial.println(val);
 
 
 
-  delay(10000); // Add delay to avoid exceeding Firebase's write limit
+  delay(500); // Add delay to avoid exceeding Firebase's write limit
 }
 
 

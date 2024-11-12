@@ -28,7 +28,7 @@ void setup() {
   pinMode(LIGHT1_PIN, OUTPUT);
   pinMode(LIGHT2_PIN, OUTPUT);
   pinMode(AC1_PIN, OUTPUT);
-  pinMode(AC2_PIN, OUTPUT);
+  // pinMode(AC2_PIN, OUTPUT);
   pinMode(PriDOOR_PIN, OUTPUT);
   pinMode(PubDOOR_PIN, OUTPUT);
 
@@ -37,6 +37,7 @@ void setup() {
   pinMode(echoPin, INPUT_PULLUP); // Sets the echoPin as an Input
 
   // for motion sensor
-  pinMode(Pir_Pin,INPUT); // sets pir pin as input to get the value
+  pinMode(ir_Pin,INPUT); // sets pir pin as input to get the value
+  pinMode(LED_BUILTIN, OUTPUT);
   
 }
