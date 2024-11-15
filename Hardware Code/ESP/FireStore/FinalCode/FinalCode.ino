@@ -16,6 +16,10 @@
 #define WIFI_PASSWORD "AA0327927"      // Replace with your Wi-Fi password
 // #define WIFI_SSID "HOME 2.4GHz"    // Replace with your Wi-Fi SSID
 // #define WIFI_PASSWORD "12345678"  // Replace with your Wi-Fi password
+// #define WIFI_SSID "Redmi Note 10 Pro Max"  // Enter wifi name
+// #define WIFI_PASSWORD "1234567890" // Enter wifi password
+// #define WIFI_SSID "Raj's Galaxy S23 FE"  // Enter wifi name
+// #define WIFI_PASSWORD "pcmrocks" // Enter wifi password
 
 // Firebase configuration
 #define API_KEY "AIzaSyD99Zl8a6NWul1Fu-oEAC3IfH3yMkBae7Q"  // Your Firebase API key
