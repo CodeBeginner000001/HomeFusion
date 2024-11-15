@@ -1,58 +1,52 @@
 import { useEffect, useState } from "react";
 import collectionData from "./Utils/Firebase_GetData.js";
-import {
-  FanCard,
-  AcCard,
-  LightCard,
-  Private_LockCard,
-  Public_LockCard,
-} from "./CollectionCards";
-
+import CollectionCard from "./CollectionCard.jsx";
+import Collections from "./Utils/CollectionsName.js"
 export default function App() {
-  // collection names variables
-  let FanCollection = "Fans";
-  let AcCollection = "ACs";
-  let LightCollection = "Lights";
-  let Private_LockCollection = "Private_Door_Locks";
-  let Public_LockCollection = "Public_Door_Locks";
-
 //  useStates to store collections data
-  const [fansData, setFansData] = useState([]);
-  const [acsData, setAcsData] = useState([]);
-  const [lightsData, setLightsData] = useState([]);
-  const [privateDoorLockData, setPrivateDoorLockData] = useState([]);
-  const [publicDoorLockData, setPublicDoorLockData] = useState([]);
+ const [collectionDataMap, setCollectionDataMap] = useState({});
 
   useEffect(() => {
-   // Fetch data from each collection and set it to respective state variables
-   const unsubscribeFans = collectionData(FanCollection, setFansData);
-   const unsubscribeAcs = collectionData(AcCollection, setAcsData);
-   const unsubscribeLights = collectionData(LightCollection, setLightsData);
-   const unsubscribePrivateDoorLocks = collectionData(Private_LockCollection, setPrivateDoorLockData);
-   const unsubscribePublicDoorLocks = collectionData(Public_LockCollection, setPublicDoorLockData);
+   // collection names variables
+  // let FanCollection = "Fans";
+  
+// //  useStates to store collections data
+//   const [fansData, setFansData] = useState([]);
 
-   // Cleanup on unmount
-   return () => {
-     unsubscribeFans();
-     unsubscribeAcs();
-     unsubscribeLights();
-     unsubscribePrivateDoorLocks();
-     unsubscribePublicDoorLocks();
-   };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+//   useEffect(() => {
+//    // Fetch data from each collection and set it to respective state variables
+//    const unsubscribeFans = collectionData(FanCollection, setFansData);
+
+
+   const unsubscribeList = Collections.map((Collection) => {
+    const unsubscribe = collectionData(Collection.CollectionName, (data) => {
+      setCollectionDataMap((prevData) => ({
+        ...prevData,
+        [Collection.CollectionName]: data, // Store data for each collection dynamically
+      }));
+    });
+    return unsubscribe; // Return unsubscribe function for cleanup
+  });
+
+  // Cleanup function to unsubscribe when the component is unmounted
+  return () => {
+    unsubscribeList.forEach((unsubscribe) => unsubscribe());
+  };
   }, []);
   return (
     <>
-      <h2 className="text-3xl ml-6">Fans</h2>
-      <FanCard fansData={fansData} CollectionName={FanCollection}/>
-      <h2 className="text-3xl ml-6">Ac</h2>
-      <AcCard acsData={acsData} CollectionName={AcCollection}/>
-      <h2 className="text-3xl ml-6">Lights</h2> 
-      <LightCard lightsData={lightsData} CollectionName={LightCollection}/>
-      <h2 className="text-3xl ml-6">Private Lock</h2>
-      <Private_LockCard privateDoorLockData={privateDoorLockData} CollectionName={Private_LockCollection}/>
-      <h2 className="text-3xl ml-6">Public Lock</h2>
-      <Public_LockCard publicDoorLockData={publicDoorLockData} CollectionName={Public_LockCollection}/>
+      {
+        Collections.map((Collection)=>{
+          // console.log(collectionDataMap);
+          const data = collectionDataMap[Collection.CollectionName] || [];
+          return (
+            <div key = {Collection.name}>
+             <h2 className="text-3xl ml-6">{Collection.name}</h2>
+             <CollectionCard CollectionData={data} CollectionName={Collection.CollectionName}/>
+            </div>
+          )
+        })
+      }
     </>
   );
 }
