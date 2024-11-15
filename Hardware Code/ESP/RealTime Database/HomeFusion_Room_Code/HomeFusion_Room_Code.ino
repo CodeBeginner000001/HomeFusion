@@ -70,7 +70,7 @@ bool Public_doorValue = false; // keeping the public door lock value to low
 
 // IR motion sensor pin
 int Ir_Pin = 39;
-int val = 1;
+int val=1;
 
 // Email and Password for sign up
 // String email = "ashu2100ag@gmail.com";
@@ -133,6 +133,8 @@ void loop() {
   // put your main code here, to run repeatedly:
   // Not to check the firebase and run hardware on these sensor
   bool sensorState = true;
+  IR_SensorValue();
+  Serial.println(val);
   if(val == LOW){
       digitalWrite(FAN1_PIN, LOW);
       digitalWrite(LIGHT1_PIN, LOW);
