@@ -132,35 +132,34 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   // Not to check the firebase and run hardware on these sensor
+  bool sensorState = true;
+  if(val == LOW){
+      digitalWrite(FAN1_PIN, LOW);
+      digitalWrite(LIGHT1_PIN, LOW);
+      sensorState = false;
+  }
+  if(Public_doorValue == true){
+      digitalWrite(PubDOOR1_PIN, LOW);
+  }
 
   if(Firebase.ready() && signupOK && (millis()-sendDataPrevMillis>1000 || sendDataPrevMillis==0)){
-      sendDataPrevMillis = millis();
+    sendDataPrevMillis = millis();
     // Boolean to store the state from Firebase
     bool fan1State, fan2State, fan3State;
     bool Light1State,Light2State;
     bool Ac1State;
     bool Public_Door1State;
     bool Private_Door1State;
-
     // Default working if not connected to firebase and working of sensor
     Public_doorValue = UltrasonicValue();
 
-    if(val == LOW){
-      digitalWrite(FAN1_PIN, LOW);
-      digitalWrite(LIGHT1_PIN, LOW);
-    }else{
+    if(sensorState){
        WriteInFirebaseBool("Fans","Fan1", fan1State, FAN1_PIN);
        WriteInFirebaseBool("Lights","Light1", Light1State, LIGHT1_PIN);
     }
-
-    if(Public_doorValue == true){
-      digitalWrite(PubDOOR1_PIN, LOW);
-    }
-    else{
+   if(!Public_doorValue) {
     WriteInFirebaseBool("Public_Doors","Public_Door1", Public_Door1State, PubDOOR1_PIN);
     }
-
-    
     /* Calling the function to check check the value or create if doesn't exist and control pins accordingly */
     // Fans
     WriteInFirebaseBool("Fans","Fan2", fan2State, FAN2_PIN);
@@ -179,9 +178,5 @@ void loop() {
       Firebase.RTDB.setBool(&fbdo,"Private_Doors/Private_Door1", false);
       Private_Door1State = false;
     }
-
-
-
-    
   }
 }
