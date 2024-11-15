@@ -1,3 +1,8 @@
+/*
+Don't change below this commet line and if you want to add new collection name and want to have card for that collection ,
+please add name of the collection in the collectionName and the heading in the file called CollectionName.js ,
+their you can write the collection Name in the collectionName section and give the heading in the name.
+*/
 import { useEffect, useState } from "react";
 import collectionData from "./Utils/Firebase_GetData.js";
 import CollectionCard from "./CollectionCard.jsx";
